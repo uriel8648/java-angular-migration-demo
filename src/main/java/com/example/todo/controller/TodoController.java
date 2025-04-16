@@ -24,6 +24,8 @@ public class TodoController {
     public String listTodos(Model model) {
         List<Todo> todos = todoService.findAll();
         model.addAttribute("todos", todos);
+        model.addAttribute("sort" + "TITLE", "desc");
+        model.addAttribute("sort" + "DESCRIPTION", "desc");
         return "todo/list";
     }
     
@@ -31,12 +33,16 @@ public class TodoController {
     public String viewTodo(@PathVariable Long id, Model model) {
         Todo todo = todoService.findById(id);
         model.addAttribute("todo", todo);
+        model.addAttribute("sort" + "TITLE", "desc");
+        model.addAttribute("sort" + "DESCRIPTION", "desc");
         return "todo/view";
     }
     
     @GetMapping("/new")
     public String newTodoForm(Model model) {
         model.addAttribute("todo", new Todo());
+        model.addAttribute("sort" + "TITLE", "desc");
+        model.addAttribute("sort" + "DESCRIPTION", "desc");
         return "todo/form";
     }
     
@@ -44,7 +50,9 @@ public class TodoController {
     public String editTodoForm(@PathVariable Long id, Model model) {
         Todo todo = todoService.findById(id);
         model.addAttribute("todo", todo);
-        return "todo/form";
+        model.addAttribute("sort" + "TITLE", "desc");
+        model.addAttribute("sort" + "DESCRIPTION", "desc");
+       return "todo/form";
     }
     
     @PostMapping
@@ -69,5 +77,17 @@ public class TodoController {
         todo.setCompleted(!todo.isCompleted());
         todoService.update(todo);
         return "redirect:/todos";
+    }
+    @GetMapping("/sort/{sortType}/{sortOrder}")
+    public String toggleTodoStatus(Model model, @PathVariable String sortType, @PathVariable String sortOrder) {
+    	List<Todo> todos = todoService.sort(sortType, sortOrder);
+        model.addAttribute("todos", todos);
+        model.addAttribute("sort" + "TITLE", "desc");
+        model.addAttribute("sort" + "DESCRIPTION", "desc");
+        if (sortOrder.equalsIgnoreCase("DESC")) {
+        	model.addAttribute("sort" + sortType, "asc");
+        }
+        
+        return "todo/list";
     }
 }
