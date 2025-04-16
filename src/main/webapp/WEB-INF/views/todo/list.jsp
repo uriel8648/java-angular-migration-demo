@@ -11,6 +11,10 @@
                     <span class="glyphicon glyphicon-plus"></span> Add New Todo
                 </a>
                 <hr>
+                <a href="<c:url value="/todos/bulk"/>" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span> Todo Bulk Update
+                </a>
+                <hr>
                 <c:choose>
                     <c:when test="${empty todos}">
                         <div class="alert alert-info">No todo items found. Create a new one!</div>

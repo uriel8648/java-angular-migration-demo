@@ -39,7 +39,14 @@ public class TodoController {
         model.addAttribute("todo", new Todo());
         return "todo/form";
     }
-    
+
+    @GetMapping("/bulk")
+    public String bulkTodo(Model model) {
+        List<Todo> todos = todoService.findAll();
+        model.addAttribute("todos", todos);
+        return "pro-todo-list";
+    }
+
     @GetMapping("/{id}/edit")
     public String editTodoForm(@PathVariable Long id, Model model) {
         Todo todo = todoService.findById(id);
@@ -69,5 +76,24 @@ public class TodoController {
         todo.setCompleted(!todo.isCompleted());
         todoService.update(todo);
         return "redirect:/todos";
+    }
+
+    @PostMapping("/bulk/complete")
+    public String completeTodos(@RequestBody List<Long> ids) {
+        for (Long id : ids) {
+            // Fetch dentro del loop (mala práctica: N+1)
+            Todo t = todoService.findById(id);
+            if (t != null) {
+                t.setCompleted(true);
+                todoService.save(t);
+            }
+        }
+        return "OK";
+    }
+
+    @PostMapping("/bulk/delete")
+    public String deleteTodos(@RequestBody List<Long> ids) {
+        todoService.deleteAllById(ids);
+        return "OK";
     }
 }
