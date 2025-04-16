@@ -10,8 +10,7 @@
                 <a href="<c:url value="/todos/new"/>" class="btn btn-success">
                     <span class="glyphicon glyphicon-plus"></span> Add New Todo
                 </a>
-                <hr>
-                <a href="<c:url value="/todos/bulk"/>" class="btn btn-success">
+                <a href="<c:url value="/todos/bulk"/>" class="btn btn-info">
                     <span class="glyphicon glyphicon-plus"></span> Todo Bulk Update
                 </a>
                 <hr>
