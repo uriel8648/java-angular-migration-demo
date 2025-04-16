@@ -20,8 +20,14 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
+                                    <th>Title<a href="<c:url value="/todos/sort/TITLE/${sortTITLE}"/>" class="btn btn-xs btn-danger" 
+                                               onclick="return confirm('Sort by Title?');">
+                                                <span class="glyphicon glyphicon-sort"></span>
+                                            </a> </th>
+                                    <th>Description<a href="<c:url value="/todos/sort/DESCRIPTION/${sortDESCRIPTION}"/>" class="btn btn-xs btn-danger" 
+                                               onclick="return confirm('Sort by Description?');">
+                                                <span class="glyphicon glyphicon-sort"></span>
+                                            </a></th>
                                     <th>Created Date</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -29,7 +35,7 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${todos}" var="todo">
-                                    <tr>
+                                	<tr>
                                         <td>${todo.id}</td>
                                         <td class="${todo.completed ? 'completed' : ''}">${todo.title}</td>
                                         <td class="${todo.completed ? 'completed' : ''}">${todo.description}</td>
