@@ -20,11 +20,11 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Title<a href="<c:url value="/todos/sort/TITLE/${sortTITLE}"/>" class="btn btn-xs btn-danger" 
+                                    <th>Title<a href="<c:url value="/todos/sort/TITLE/${sortTITLE}/1"/>" class="btn btn-xs btn-danger" 
                                                onclick="return confirm('Sort by Title?');">
                                                 <span class="glyphicon glyphicon-sort"></span>
                                             </a> </th>
-                                    <th>Description<a href="<c:url value="/todos/sort/DESCRIPTION/${sortDESCRIPTION}"/>" class="btn btn-xs btn-danger" 
+                                    <th>Description<a href="<c:url value="/todos/sort/DESCRIPTION/${sortDESCRIPTION}/1"/>" class="btn btn-xs btn-danger" 
                                                onclick="return confirm('Sort by Description?');">
                                                 <span class="glyphicon glyphicon-sort"></span>
                                             </a></th>
@@ -64,6 +64,8 @@
                                 </c:forEach>
                             </tbody>
                         </table>
+                        <a href="<c:url value="/todos/sort/${currentSort}/${currentOrder}/${nextPage}"/>" class="btn btn-xs btn-danger">
+                                                <span class="glyphicon glyphicon-forward"></span></a>
                     </c:otherwise>
                 </c:choose>
             </div>
