@@ -14,6 +14,8 @@ public class TodoServiceImpl implements TodoService {
     
     private final TodoRepository todoRepository;
     
+    private final int pageSize=10;
+    
     @Autowired
     public TodoServiceImpl(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
@@ -39,14 +41,22 @@ public class TodoServiceImpl implements TodoService {
         return todoRepository.update(todo);
     }
     @Override
-    public List<Todo> sort(String sortType, String sortOrder) {
+    public List<Todo> sort(String sortType, String sortOrder, String page) {
     	if (sortType.equalsIgnoreCase("TITLE") ) {
-    		return todoRepository.findAll().stream().sorted(sortOrder.equalsIgnoreCase("ASC")?titleComparator:titleComparator.reversed() ).collect(Collectors.toList());
+    		return todoRepository.findAll().stream()
+    				.sorted(sortOrder.equalsIgnoreCase("ASC")?titleComparator:titleComparator
+    						.reversed() ).skip((new Integer(page).intValue() - 1) * pageSize)
+                    .limit(pageSize).collect(Collectors.toList());
     	} 
     	if (sortType.equalsIgnoreCase("DESCRIPTION") ) {
-    		return todoRepository.findAll().stream().sorted(sortOrder.equalsIgnoreCase("ASC")?descriptionComparator:descriptionComparator.reversed()  ).collect(Collectors.toList());
+    		return todoRepository.findAll().stream()
+    				.sorted(sortOrder.equalsIgnoreCase("ASC")?descriptionComparator:descriptionComparator
+    						.reversed()  ).skip((new Integer(page).intValue() - 1) * pageSize)
+    				.limit(pageSize).collect(Collectors.toList());
     	} 
-      return todoRepository.findAll();
+      return todoRepository.findAll().stream()
+				.skip((new Integer(page).intValue() - 1) * pageSize)
+				.limit(pageSize).collect(Collectors.toList());
     }
     @Override
     public void delete(Long id) {
