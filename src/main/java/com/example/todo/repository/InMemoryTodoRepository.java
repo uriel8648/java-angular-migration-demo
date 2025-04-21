@@ -65,4 +65,9 @@ public class InMemoryTodoRepository implements TodoRepository {
     public void delete(Long id) {
         todos.remove(id);
     }
+
+    @Override
+    public void deleteAllById(List<Long> ids) {
+        ids.forEach(todos::remove);
+    }
 }

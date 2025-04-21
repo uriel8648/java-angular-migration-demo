@@ -10,4 +10,5 @@ public interface TodoService {
     Todo update(Todo todo);
     List<Todo> sort(String sortType, String sortOrder, String page);
     void delete(Long id);
+    void deleteAllById(List<Long> ids);
 }

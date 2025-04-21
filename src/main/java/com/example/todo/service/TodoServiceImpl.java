@@ -52,6 +52,12 @@ public class TodoServiceImpl implements TodoService {
     public void delete(Long id) {
         todoRepository.delete(id);
     }
+
+    @Override
+    public void deleteAllById(List<Long> ids) {
+        todoRepository.deleteAllById(ids);
+    }
+    
     Comparator<Todo> titleComparator = new Comparator<Todo>() {
     	  @Override
     	  public int compare(Todo i1, Todo i2) {
