@@ -8,6 +8,7 @@ public interface TodoService {
     Todo findById(Long id);
     Todo save(Todo todo);
     Todo update(Todo todo);
+    List<Todo> sort(String sortType, String sortOrder, String page);
     void delete(Long id);
     void deleteAllById(List<Long> ids);
 }

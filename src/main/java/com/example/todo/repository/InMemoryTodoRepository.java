@@ -20,7 +20,18 @@ public class InMemoryTodoRepository implements TodoRepository {
         save(new Todo(null, "Learn Spring MVC", "Study Spring MVC with JSP and JSTL"));
         save(new Todo(null, "Learn AngularJS", "Study AngularJS and integrate with JSP"));
         save(new Todo(null, "Build Todo App", "Create a complete Todo application"));
-    }
+        save(new Todo(null, "Build TodoPro App", "Create an enhanced Todo application"));
+        save(new Todo(null, "Document Todo App", "Document Todo application"));
+        save(new Todo(null, "Document TodoPro App", "Document the TodoPro application"));
+        save(new Todo(null, "Demo Todo App", "Demostrate Todo application"));
+        save(new Todo(null, "Demo TodoPro App", "Demostrate TodoPro application"));
+        save(new Todo(null, "Prepare Release Todo App", "Prepare and Schedule Todo application"));
+        save(new Todo(null, "Release Todo App", "Release Todo application"));
+        save(new Todo(null, "QA Todo App", "QA Todo application"));
+        save(new Todo(null, "Prepare Release TodoPro App", "Prepare and Schedule TodoPro application"));
+        save(new Todo(null, "Release TodoPro App", "Release TodoPro application"));
+        save(new Todo(null, "QA TodoPro App", "QA TodoPro application"));
+         }
     
     @Override
     public List<Todo> findAll() {
