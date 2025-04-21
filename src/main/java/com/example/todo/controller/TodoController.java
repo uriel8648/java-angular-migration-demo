@@ -136,7 +136,7 @@ public class TodoController {
         }
         model.addAttribute("currentSort", sortType);
         model.addAttribute("currentOrder", sortOrder);
-        model.addAttribute("nextPage", "0" + (new Integer(page).intValue()+1));   
+        model.addAttribute("nextPage", "0" + (Integer.parseInt(page)+1));   
         
         return "todo/list";
     }

@@ -67,8 +67,14 @@
                                 </c:forEach>
                             </tbody>
                         </table>
-                        <a href="<c:url value="/todos/sort/${currentSort}/${currentOrder}/${nextPage}"/>" class="btn btn-xs btn-danger">
-                                                <span class="glyphicon glyphicon-forward"></span></a>
+               		 	<c:if test="${!empty todos && todos.size() gt 9 }">
+                        	<a href="<c:url value="/todos/sort/${currentSort}/${currentOrder}/${nextPage}"/>" class="btn btn-xs btn-danger">
+                              <span class="glyphicon glyphicon-forward"></span></a>
+                    	</c:if>
+                    	<c:if test="${Integer.parseInt(nextPage) gt 2 }">
+                        	<a href="<c:url value="/todos/sort/${currentSort}/${currentOrder}/${Integer.parseInt(nextPage + '-2') }"/>" class="btn btn-xs btn-danger">
+                              <span class="glyphicon glyphicon-backward"></span></a>
+                    	</c:if>
                     </c:otherwise>
                 </c:choose>
             </div>
