@@ -13,6 +13,31 @@
                 <a href="<c:url value="/todos/bulk"/>" class="btn btn-info">
                     <span class="glyphicon glyphicon-plus"></span> Todo Bulk Update
                 </a>
+                <script>
+                    function filterTableRows() {
+                        const selectedValue = document.getElementById("statusFilter").value;
+                        const rows = document.querySelectorAll("tbody tr");
+
+                        rows.forEach(row => {
+                            const statusCell = row.children[4];
+                            const statusText = statusCell.textContent.trim();
+
+                            if (selectedValue === "All" || statusText === selectedValue) {
+                                row.classList.remove("hidden");
+                            }
+                            else {
+                                row.classList.add("hidden");
+                            }
+                        });
+                    }
+                </script>
+                <c:set var="statuses" value="${fn:split('All,Completed,Pending,Unknown',',')}"/>
+                <label>Filter by:</label>
+                <select id="statusFilter" name="filterStatus" class="btn" onchange="filterTableRows()">
+                    <c:forEach var="option" items="${statuses}" varStatus="status">
+                        <option value="${option}" <c:if test="${status.index == 0}">selected</c:if>>${option}</option>
+                    </c:forEach>
+                </select>
                 <hr>
                 <c:choose>
                     <c:when test="${empty todos}">
