@@ -5,6 +5,7 @@ import com.example.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,13 @@ public class TodoRestController {
         return new ResponseEntity<>(savedTodo, HttpStatus.CREATED);
     }
     
+    @GetMapping("/bulk")
+    public ResponseEntity<List<Todo>> bulkTodo(Model model) {
+        List<Todo> todos = todoService.findAll();
+        model.addAttribute("todos", todos);
+        return new ResponseEntity<>(todos, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
         Todo existingTodo = todoService.findById(id);
@@ -74,5 +82,24 @@ public class TodoRestController {
         todo.setCompleted(!todo.isCompleted());
         Todo updatedTodo = todoService.update(todo);
         return new ResponseEntity<>(updatedTodo, HttpStatus.OK);
+    }
+
+    @PostMapping("/bulk/complete")
+    public ResponseEntity<Void> completeTodos(@RequestBody List<Long> ids) {
+        for (Long id : ids) {
+            // Fetch dentro del loop (mala práctica: N+1)
+            Todo t = todoService.findById(id);
+            if (t != null) {
+                t.setCompleted(true);
+                todoService.save(t);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/bulk/delete")
+    public ResponseEntity<Void> deleteTodos(@RequestBody List<Long> ids) {
+        todoService.deleteAllById(ids);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
