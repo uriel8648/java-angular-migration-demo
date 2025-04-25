@@ -13,11 +13,49 @@
         $scope.editMode = false;
         $scope.editIndex = -1;
         
+		$scope.toggleNextPage = function() {
+		      $scope.nextPage=(+$scope.nextPage) +1;
+       		  $scope.loadTodos();	
+			  $scope.resetForm();
+			}
+       $scope.togglePrevPage = function() {
+			      $scope.nextPage=+$scope.nextPage -1 ;
+			    $scope.loadTodos();	
+			  $scope.resetForm();
+		  				}
+		$scope.toggleSortField = function(newvalue) {
+		   if ($scope.sortField = newvalue) {
+			$scope.toggleSortOrder ();
+		} else {
+				$scope.sortOrder='asc'
+			}
+			$scope.sortField=newvalue;
+		   $scope.loadTodos();	
+		 $scope.resetForm();
+	 		  	}	
+		$scope.toggleSortOrder = function() {
+			console.error('$scope.sortOrder1 ',  $scope.sortOrder );
+		  if($scope.sortOrder === 'asc') {
+			$scope.sortOrder= 'desc';
+			} else {
+				$scope.sortOrder= 'asc';
+			}
+		}
         // Load all todos
         $scope.loadTodos = function() {
-            $http.get('api/todos')
+            $http.get('api/todos/' + $scope.sortField + '/' + $scope.sortOrder + '/' +$scope.nextPage)
                 .then(function(response) {
-                    $scope.todos = response.data;
+					$scope.todos  =  response.data;
+					if ($scope.todos.length >9) {
+						$scope.showNext=true;
+						} else {
+							$scope.showNext=false;
+						}
+					if (Number($scope.nextPage) > 1) {
+				    	$scope.showPrev=true;
+							}else {
+							$scope.showPrev=false;
+							}
                 }, function(error) {
                     console.error('Error loading todos:', error);
                     alert('Failed to load todos. Check console for details.');
@@ -120,6 +158,9 @@
         };
         
         // Initialize
-        $scope.loadTodos();
+		$scope.sortOrder = 'asc';
+		$scope.sortField = 'ID';
+		$scope.nextPage = '1';
+        $scope.loadTodos();	
     }]);
 })();

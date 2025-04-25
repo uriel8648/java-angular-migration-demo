@@ -26,6 +26,11 @@ public class TodoRestController {
         List<Todo> todos = todoService.findAll();
         return new ResponseEntity<>(todos, HttpStatus.OK);
     }
+    @GetMapping ("/{sortType}/{sortOrder}/{page}")
+    public ResponseEntity<List<Todo>> getAllTodosSorted(@PathVariable String sortType, @PathVariable String sortOrder, @PathVariable String page) {
+        List<Todo> todos = todoService.sort(sortType, sortOrder, page);
+        return new ResponseEntity<List<Todo>>(todos, HttpStatus.OK);
+    }
     
     @GetMapping("/{id}")
     public ResponseEntity<Todo> getTodoById(@PathVariable Long id) {
