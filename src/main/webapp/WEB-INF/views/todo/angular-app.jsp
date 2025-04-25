@@ -1,4 +1,5 @@
 <%@ include file="../common/header.jsp" %>
+<%@ page import="com.example.todo.model.Todo" %>
 
 <%-- Include AngularJS library (hosted version) --%>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
@@ -41,7 +42,9 @@
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">{{editMode ? 'Update' : 'Add'}}</button>
                                             <button type="button" class="btn btn-default" ng-click="cancelEdit()" ng-show="editMode">Cancel</button>
-                                        </div>
+                                           	<button  type="button" class="glyphicon glyphicon-forward" ng-click="toggleNextPage()" ng-show= "showNext"  class="btn btn-xs btn-danger">
+                                       		<button  type="button" class="glyphicon glyphicon-backward" ng-click="togglePrevPage()" ng-show= "showPrev"  class="btn btn-xs btn-danger">
+                                  		</div>
                                     </form>
                                 </div>
                             </div>
@@ -55,14 +58,14 @@
                             <table class="table table-striped table-hover" ng-if="todos.length > 0">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Title</th>
+                                        <th>ID <button type="button" class="glyphicon glyphicon-sort" ng-click="toggleSortField('ID')" class="btn btn-xs btn-danger"> </th>
+                                        <th>Title <button type="button" class="glyphicon glyphicon-sort" ng-click="toggleSortField('TITLE')" class="btn btn-xs btn-danger"></th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="todo in todos">
+                                    <tr ng-repeat="todo in todos track by $index" >
                                         <td>{{todo.id}}</td>
                                         <td ng-class="{'completed': todo.completed}">{{todo.title}}</td>
                                         <td>
@@ -87,6 +90,8 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <%Todo todoraw= new Todo(9999l,"RAW", "Radical Abstration Web"); %>
+                            <%="Example of " +  todoraw.toString() %>
                         </div>
                     </div>
                 </div>

@@ -55,7 +55,8 @@ public class TodoServiceImpl implements TodoService {
     				.limit(pageSize).collect(Collectors.toList());
     	} 
       return todoRepository.findAll().stream()
-				.skip((new Integer(page).intValue() - 1) * pageSize)
+    		  .sorted(sortOrder.equalsIgnoreCase("ASC")?idComparator:idComparator
+						.reversed()  ).skip((new Integer(page).intValue() - 1) * pageSize)
 				.limit(pageSize).collect(Collectors.toList());
     }
     @Override
@@ -74,5 +75,10 @@ public class TodoServiceImpl implements TodoService {
         	    return i2.getDescription().compareTo(i1.getDescription());
         	  }
         	}; 
-        	
+        	  Comparator<Todo> idComparator = new Comparator<Todo>() {
+            	  @Override
+            	  public int compare(Todo i1, Todo i2) {
+            	    return i2.getId().compareTo(i1.getId());
+            	  }
+            	};   	
 }
