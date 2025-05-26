@@ -5,11 +5,10 @@ import com.example.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/todos")
 public class TodoRestController {
@@ -25,11 +24,6 @@ public class TodoRestController {
     public ResponseEntity<List<Todo>> getAllTodos() {
         List<Todo> todos = todoService.findAll();
         return new ResponseEntity<>(todos, HttpStatus.OK);
-    }
-    @GetMapping ("/{sortType}/{sortOrder}/{page}")
-    public ResponseEntity<List<Todo>> getAllTodosSorted(@PathVariable String sortType, @PathVariable String sortOrder, @PathVariable String page) {
-        List<Todo> todos = todoService.sort(sortType, sortOrder, page);
-        return new ResponseEntity<List<Todo>>(todos, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
@@ -47,13 +41,6 @@ public class TodoRestController {
         return new ResponseEntity<>(savedTodo, HttpStatus.CREATED);
     }
     
-    @GetMapping("/bulk")
-    public ResponseEntity<List<Todo>> bulkTodo(Model model) {
-        List<Todo> todos = todoService.findAll();
-        model.addAttribute("todos", todos);
-        return new ResponseEntity<>(todos, HttpStatus.OK);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
         Todo existingTodo = todoService.findById(id);
@@ -89,22 +76,15 @@ public class TodoRestController {
         return new ResponseEntity<>(updatedTodo, HttpStatus.OK);
     }
 
-    @PostMapping("/bulk/complete")
-    public ResponseEntity<Void> completeTodos(@RequestBody List<Long> ids) {
-        for (Long id : ids) {
-            // Fetch dentro del loop (mala práctica: N+1)
-            Todo t = todoService.findById(id);
-            if (t != null) {
-                t.setCompleted(true);
-                todoService.save(t);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("/sort/{sortField}/{sortOrder}/{page}")
+    public ResponseEntity<List<Todo>> getTodosSortedPaginated(
+            @PathVariable String sortField,
+            @PathVariable String sortOrder,
+            @PathVariable int page) {
+        List<Todo> todos = todoService.sort(sortField, sortOrder, String.valueOf(page));
+        return new ResponseEntity<>(todos, HttpStatus.OK);
     }
+    
 
-    @PostMapping("/bulk/delete")
-    public ResponseEntity<Void> deleteTodos(@RequestBody List<Long> ids) {
-        todoService.deleteAllById(ids);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+
 }

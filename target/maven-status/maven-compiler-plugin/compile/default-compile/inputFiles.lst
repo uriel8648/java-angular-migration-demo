@@ -1,8 +1,8 @@
-/Users/jorge/Development/java-angular-migration-demo/src/main/java/com/example/todo/service/TodoServiceImpl.java
-/Users/jorge/Development/java-angular-migration-demo/src/main/java/com/example/todo/model/Todo.java
-/Users/jorge/Development/java-angular-migration-demo/src/main/java/com/example/todo/controller/TodoController.java
-/Users/jorge/Development/java-angular-migration-demo/src/main/java/com/example/todo/controller/TodoRestController.java
-/Users/jorge/Development/java-angular-migration-demo/src/main/java/com/example/todo/controller/HomeController.java
-/Users/jorge/Development/java-angular-migration-demo/src/main/java/com/example/todo/repository/InMemoryTodoRepository.java
-/Users/jorge/Development/java-angular-migration-demo/src/main/java/com/example/todo/service/TodoService.java
-/Users/jorge/Development/java-angular-migration-demo/src/main/java/com/example/todo/repository/TodoRepository.java
+C:\prubas\Migration-demo\java-angular-migration-demo\src\main\java\com\example\todo\repository\InMemoryTodoRepository.java
+C:\prubas\Migration-demo\java-angular-migration-demo\src\main\java\com\example\todo\service\TodoService.java
+C:\prubas\Migration-demo\java-angular-migration-demo\src\main\java\com\example\todo\controller\HomeController.java
+C:\prubas\Migration-demo\java-angular-migration-demo\src\main\java\com\example\todo\controller\TodoController.java
+C:\prubas\Migration-demo\java-angular-migration-demo\src\main\java\com\example\todo\service\TodoServiceImpl.java
+C:\prubas\Migration-demo\java-angular-migration-demo\src\main\java\com\example\todo\model\Todo.java
+C:\prubas\Migration-demo\java-angular-migration-demo\src\main\java\com\example\todo\controller\TodoRestController.java
+C:\prubas\Migration-demo\java-angular-migration-demo\src\main\java\com\example\todo\repository\TodoRepository.java

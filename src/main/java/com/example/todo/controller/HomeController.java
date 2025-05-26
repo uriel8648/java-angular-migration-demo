@@ -15,4 +15,9 @@ public class HomeController {
     public String angularApp() {
         return "todo/angular-app";
     }
+
+    @GetMapping("/angular12-app")
+    public String angular12App() {
+        return "todo/angular12-app";
+    }
 }
